@@ -1,27 +1,53 @@
 class ActionMap():
     tiles = []
-    MAP_WIDTH_IN_TILES = 28
-    MAP_HEIGHT_IN_TILES = 21
+    MAP_WIDTH_IN_TILES = 1000
+    MAP_HEIGHT_IN_TILES = 1000
+    T_EMPTY = 69
+    T_LAND_BL = 0
+    T_LAND_BR = 4
+    T_LAND_TL = 84
+    T_LAND_TR = 88
+    T_LAND_B = 1
+    T_LAND_B_DROP = 6
+    T_LAND_T = 85
+    T_LAND_L = 63
+    T_LAND_R = 67
+    T_LAND_MID = 44
 
     def __init__(self):
-        pass
+        for x in range(0, self.MAP_WIDTH_IN_TILES):
+            self.tiles.append([])
+            for y in range(0, self.MAP_HEIGHT_IN_TILES):
+                self.tiles[x].append(self.T_EMPTY)
+        self.create_island(10, 10, 5, 5)
 
-    def get_index(self, x, y):
-        if x == 0 and y == 0:
-            return 0
-        elif x == 0 and y == self.MAP_HEIGHT_IN_TILES - 1:
-            return 84
-        elif x == self.MAP_WIDTH_IN_TILES - 1 and y == 0:
-            return 4
-        elif x == self.MAP_WIDTH_IN_TILES - 1 and y == self.MAP_HEIGHT_IN_TILES - 1:
-            return 88
-        elif x == 0:
-            return 21
-        elif y == 0:
-            return 1
-        elif x == self.MAP_WIDTH_IN_TILES - 1:
-            return 67
-        elif y == self.MAP_HEIGHT_IN_TILES - 1:
-            return 85
-        else:
-            return 44
+    def get_tile(self, x, y):
+        if x < 0 or y < 0 or x > self.MAP_WIDTH_IN_TILES or y > self.MAP_HEIGHT_IN_TILES:
+            print("Out of bound for getting tiles")
+            return self.T_EMPTY
+        return self.tiles[x][y]
+
+    def create_island(self, x, y, width, height):
+        if x <= 0 or y <= 0 or x + width > self.MAP_WIDTH_IN_TILES  \
+                or y + height > self.MAP_HEIGHT_IN_TILES:
+            print("Out of bounds for creating island")
+            return
+        self.tiles[x][y] = self.T_LAND_BL
+        self.tiles[x + width][y] = self.T_LAND_BR
+        self.tiles[x][y + height] = self.T_LAND_TL
+        self.tiles[x + width][y + height] = self.T_LAND_TR
+        self.tiles[x][y - 1] = self.T_LAND_B_DROP
+        self.tiles[x + width][y - 1] = self.T_LAND_B_DROP
+
+        for i in range(1, width):
+            self.tiles[x + i][y] = self.T_LAND_B
+            self.tiles[x + i][y + height] = self.T_LAND_T
+            self.tiles[x + i][y - 1] = self.T_LAND_B_DROP
+
+        for j in range(1, height):
+            self.tiles[x][y + j] = self.T_LAND_L
+            self.tiles[x + width][y + j] = self.T_LAND_R
+
+        for i in range(1, width):
+            for j in range(1, height):
+                self.tiles[x + i][y + j] = self.T_LAND_MID

@@ -6,11 +6,12 @@ class Camera(Widget):
     CAMERA_WIDTH_IN_TILES = 28
     CAMERA_HEIGHT_IN_TILES = 21
 
-    def __init__(self, graphics, **kwargs):
+    def __init__(self, graphics, action_map, **kwargs):
         super().__init__(**kwargs)
         self.tile_width = 8
         self.tile_height = 8
         self.graphics = graphics
+        self.action_map = action_map
 
         for x in range(0, self.CAMERA_WIDTH_IN_TILES):
             self.tiles.append([])
@@ -18,7 +19,7 @@ class Camera(Widget):
                 r = Rectangle()
                 r.pos = (x*self.tile_width, y*self.tile_height)
                 r.size = (self.tile_width, self.tile_height)
-                r.texture = self.graphics.get_map_texture(0)
+                r.texture = self.graphics.get_map_texture(self.action_map.get_tile(x, y))
                 self.tiles[x].append(r)
                 self.canvas.add(r)
 

@@ -13,7 +13,7 @@ class ActionGame(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.camera = Camera(self.graphics)
+        self.camera = Camera(self.graphics, self.action_map)
         self.add_widget(self.camera)
         self.bind(size=self.resize)
 
