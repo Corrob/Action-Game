@@ -12,12 +12,14 @@ class Camera(Widget):
         self.tile_height = 8
         self.graphics = graphics
         self.action_map = action_map
+
+        # Add background color
         self.canvas.add(Color(0.13, 0.12, 0.15))
         self.background = Rectangle()
         self.background.pos = (0, 0)
         self.background.size = (100, 100)
         self.canvas.add(self.background)
-        self.canvas.add(Color(1, 1, 1))
+        self.canvas.add(Color(1, 1, 1)) # Reset for textures
 
         for x in range(0, self.CAMERA_WIDTH_IN_TILES):
             self.tiles.append([])
