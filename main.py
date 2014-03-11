@@ -20,14 +20,8 @@ class ActionGame(Widget):
     def update(self, dt):
         self.camera.update()
 
-    def on_touch_down(self, touch):
-        self.last_touch_x = touch.x
-        self.last_touch_y = touch.y
-
     def on_touch_move(self, touch):
-        self.camera.change_pos_by(self.last_touch_x - touch.x, self.last_touch_y - touch.y )
-        self.last_touch_x = touch.x
-        self.last_touch_y = touch.y
+        self.camera.change_pos_by(-touch.dx, -touch.dy)
 
     def resize(self, instance, value):
         self.camera.resize(self)
