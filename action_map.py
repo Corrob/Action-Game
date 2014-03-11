@@ -19,13 +19,19 @@ class ActionMap():
             self.tiles.append([])
             for y in range(0, self.MAP_HEIGHT_IN_TILES):
                 self.tiles[x].append(self.T_EMPTY)
-        self.create_island(10, 10, 5, 5)
+        self.create_island(10, 10, 30, 30)
+        self.create_island(100, 100, 60, 60)
 
     def get_tile(self, x, y):
         if x < 0 or y < 0 or x > self.MAP_WIDTH_IN_TILES or y > self.MAP_HEIGHT_IN_TILES:
-            print("Out of bound for getting tiles")
             return self.T_EMPTY
         return self.tiles[x][y]
+
+    def width(self):
+        return self.MAP_WIDTH_IN_TILES
+
+    def height(self):
+        return self.MAP_HEIGHT_IN_TILES
 
     def create_island(self, x, y, width, height):
         if x <= 0 or y <= 0 or x + width > self.MAP_WIDTH_IN_TILES  \
