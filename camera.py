@@ -39,14 +39,6 @@ class Camera(Widget):
     def change_pos_by(self, dx, dy):
         self.x += dx
         self.y += dy
-        if self.y < 0:
-            self.y = 0
-        if self.x < 0:
-            self.x = 0
-        if self.x > self.action_map.width() * self.tile_width:
-            self.x = self.action_map.width() * self.tile_width
-        if self.y > self.action_map.height() * self.tile_height:
-            self.y = self.action_map.height() * self.tile_height
 
     def resize(self, root):
         self.tile_width = root.width / (self.CAMERA_WIDTH_IN_TILES - 1)
